@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="propel_scio1" defaultIdMethod="native">
+    <vendor type="mysql">
+        <parameter name="Engine" value="InnoDB" />
+        <parameter name="Charset" value="utf8" />
+    </vendor>
+    <table name="users" phpName="User">
+        <column name="user_id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="user_name" type="varchar" size="20" required="true" />
+        <unique name="user_name">
+            <unique-column name="user_name" />
+        </unique>
+        <column name="created_date" type="timestamp" required="true" />
+    </table>
+    <table name="commets" phpName="Commet">
+        <column name="comment_id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="user_id" type="integer" required="true" />
+        <foreign-key foreignTable="users">
+            <reference local="user_id" foreign="user_id" />
+        </foreign-key>
+        <column name="comment" type="varchar" size="255" required="true" />
+        <column name="created_date" type="timestamp" required="true" />
+    </table>
+</database>
