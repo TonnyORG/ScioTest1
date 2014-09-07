@@ -4,6 +4,6 @@
 		"propel/propel": "2.0.0-alpha3"
 	},
     "autoload": {
-        "classmap": ["generated-classes/"]
+        "classmap": ["generated-classes/", "controllers/"]
     }
 }

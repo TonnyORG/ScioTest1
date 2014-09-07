@@ -1,4 +1,5 @@
 <?php
+
 return [
     'propel' => [
         'database' => [
@@ -23,4 +24,3 @@ return [
         ]
     ]
 ];
-?>

@@ -27,6 +27,7 @@ Si bien no hay mucho que configurar, es necesario hacer ligeros cambios en algun
 - **[Slim Framework](https://github.com/codeguy/Slim)**: Mini-framework de PHP, muy básico solo provee herramientas de enrutamiento, vistas, sesiones y algunas cosas más.
 - **[Propel2](https://github.com/propelorm/Propel2)**: Propel es un ORM que funciona en PHP.
 - Algunas horas de fin de semana y lógica humana.
+- **[SASS](http://sass-lang.com)**: Una herramienta para crear hojas de estilo más elegantes.
 
 
 ## Contribuye

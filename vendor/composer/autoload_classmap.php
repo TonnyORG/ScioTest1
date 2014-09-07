@@ -15,5 +15,6 @@ return array(
     'Map\\CommetTableMap' => $baseDir . '/generated-classes/Map/CommetTableMap.php',
     'Map\\UserTableMap' => $baseDir . '/generated-classes/Map/UserTableMap.php',
     'User' => $baseDir . '/generated-classes/User.php',
+    'UserController' => $baseDir . '/controllers/User.php',
     'UserQuery' => $baseDir . '/generated-classes/UserQuery.php',
 );

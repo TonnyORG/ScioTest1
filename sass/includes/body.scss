@@ -1,0 +1,60 @@
+body {
+	background-color: $background-color;
+	color: $font-color;
+	font-family: $font-family;
+	font-size: 14px;
+	font-weight: 300;
+	margin: 0;
+
+	a {
+		color: $link-color;
+		
+		&:hover { color: $link-color-hover; }
+	}
+
+	h1, h2, h3, h4, h5, h6, big, small, p, ul, ol, table, form {
+		clear: both;
+		display: block;
+		margin: 1em 0;
+	}
+
+	h1, h2, h3, h4, h5, h6, big, small {
+		color: $headers-color;
+		font-family: $font-family-headers;
+		font-weight: 400;
+	}
+
+	h1, h2, big { font-size: 22px; }
+
+	h3 { font-size: 18px; }
+
+	h4 { font-size: 18px; }
+
+	h5 { font-size: 16px; }
+
+	h6 { font-size: 16px; }
+
+	small { font-size: 14px; }
+
+	img {
+		border: none;
+		height: auto;
+		max-width: 95%;
+	}
+
+	p { line-height: 1.7; }
+
+	.wrapper {
+		clear: both;
+		margin: 0 auto;
+		max-width: 700px;
+		min-width: 300px;
+		overflow: hidden;
+		position: relative;
+		width: 95%;
+	}
+
+	.padding { padding: 20px 3%; }
+
+	#header, #navigation, #body, #footer { clear: both; }
+}
