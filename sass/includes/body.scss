@@ -54,7 +54,37 @@ body {
 		width: 95%;
 	}
 
-	.padding { padding: 20px 3%; }
+	.loading {
+		position: absolute;
+
+		&:before {
+			background: rgba(0,0,0,.6);
+			bottom: 0;
+			content: "";
+			display: none;
+			left: 0;
+			position: fixed;
+			right: 0;
+			top: 0;
+			z-index: 10;
+		}
+
+		&.active {
+			&:before { display: block; }
+		}
+
+		.loading-dialog {
+			background: darken($white, 0.5%);
+			border: 1px solid $gray;
+			left: 50%;
+			margin-left: -200px;
+			position: fixed;
+			text-align: center;
+			top: -100%;
+			width: 360px;
+			z-index: 11;
+		}
+	}
 
 	#header, #navigation, #body, #footer { clear: both; }
 }

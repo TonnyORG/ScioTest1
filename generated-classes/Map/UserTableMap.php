@@ -147,7 +147,7 @@ class UserTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Commet', '\\Commet', RelationMap::ONE_TO_MANY, array('user_id' => 'user_id', ), null, null, 'Commets');
+        $this->addRelation('Comment', '\\Comment', RelationMap::ONE_TO_MANY, array('user_id' => 'user_id', ), null, null, 'Comments');
     } // buildRelations()
 
     /**

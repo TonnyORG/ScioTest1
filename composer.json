@@ -1,7 +1,8 @@
 {
     "require": {
 		"slim/slim": "2.*",
-		"propel/propel": "2.0.0-alpha3"
+		"propel/propel": "2.0.0-alpha3",
+		"monolog/monolog": "1.*"
 	},
     "autoload": {
         "classmap": ["generated-classes/", "controllers/"]

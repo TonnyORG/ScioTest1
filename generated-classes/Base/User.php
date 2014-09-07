@@ -2,8 +2,8 @@
 
 namespace Base;
 
-use \Commet as ChildCommet;
-use \CommetQuery as ChildCommetQuery;
+use \Comment as ChildComment;
+use \CommentQuery as ChildCommentQuery;
 use \User as ChildUser;
 use \UserQuery as ChildUserQuery;
 use \DateTime;
@@ -77,10 +77,10 @@ abstract class User implements ActiveRecordInterface
     protected $created_date;
 
     /**
-     * @var        ObjectCollection|ChildCommet[] Collection to store aggregation of ChildCommet objects.
+     * @var        ObjectCollection|ChildComment[] Collection to store aggregation of ChildComment objects.
      */
-    protected $collCommets;
-    protected $collCommetsPartial;
+    protected $collComments;
+    protected $collCommentsPartial;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -92,9 +92,9 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildCommet[]
+     * @var ObjectCollection|ChildComment[]
      */
-    protected $commetsScheduledForDeletion = null;
+    protected $commentsScheduledForDeletion = null;
 
     /**
      * Initializes internal state of Base\User object.
@@ -529,7 +529,7 @@ abstract class User implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->collCommets = null;
+            $this->collComments = null;
 
         } // if (deep)
     }
@@ -641,17 +641,17 @@ abstract class User implements ActiveRecordInterface
                 $this->resetModified();
             }
 
-            if ($this->commetsScheduledForDeletion !== null) {
-                if (!$this->commetsScheduledForDeletion->isEmpty()) {
-                    \CommetQuery::create()
-                        ->filterByPrimaryKeys($this->commetsScheduledForDeletion->getPrimaryKeys(false))
+            if ($this->commentsScheduledForDeletion !== null) {
+                if (!$this->commentsScheduledForDeletion->isEmpty()) {
+                    \CommentQuery::create()
+                        ->filterByPrimaryKeys($this->commentsScheduledForDeletion->getPrimaryKeys(false))
                         ->delete($con);
-                    $this->commetsScheduledForDeletion = null;
+                    $this->commentsScheduledForDeletion = null;
                 }
             }
 
-            if ($this->collCommets !== null) {
-                foreach ($this->collCommets as $referrerFK) {
+            if ($this->collComments !== null) {
+                foreach ($this->collComments as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -823,8 +823,8 @@ abstract class User implements ActiveRecordInterface
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->collCommets) {
-                $result['Commets'] = $this->collCommets->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            if (null !== $this->collComments) {
+                $result['Comments'] = $this->collComments->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1042,9 +1042,9 @@ abstract class User implements ActiveRecordInterface
             // the getter/setter methods for fkey referrer objects.
             $copyObj->setNew(false);
 
-            foreach ($this->getCommets() as $relObj) {
+            foreach ($this->getComments() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addCommet($relObj->copy($deepCopy));
+                    $copyObj->addComment($relObj->copy($deepCopy));
                 }
             }
 
@@ -1089,37 +1089,37 @@ abstract class User implements ActiveRecordInterface
      */
     public function initRelation($relationName)
     {
-        if ('Commet' == $relationName) {
-            return $this->initCommets();
+        if ('Comment' == $relationName) {
+            return $this->initComments();
         }
     }
 
     /**
-     * Clears out the collCommets collection
+     * Clears out the collComments collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
      * them to be refetched by subsequent calls to accessor method.
      *
      * @return void
-     * @see        addCommets()
+     * @see        addComments()
      */
-    public function clearCommets()
+    public function clearComments()
     {
-        $this->collCommets = null; // important to set this to NULL since that means it is uninitialized
+        $this->collComments = null; // important to set this to NULL since that means it is uninitialized
     }
 
     /**
-     * Reset is the collCommets collection loaded partially.
+     * Reset is the collComments collection loaded partially.
      */
-    public function resetPartialCommets($v = true)
+    public function resetPartialComments($v = true)
     {
-        $this->collCommetsPartial = $v;
+        $this->collCommentsPartial = $v;
     }
 
     /**
-     * Initializes the collCommets collection.
+     * Initializes the collComments collection.
      *
-     * By default this just sets the collCommets collection to an empty array (like clearcollCommets());
+     * By default this just sets the collComments collection to an empty array (like clearcollComments());
      * however, you may wish to override this method in your stub class to provide setting appropriate
      * to your application -- for example, setting the initial array to the values stored in database.
      *
@@ -1128,17 +1128,17 @@ abstract class User implements ActiveRecordInterface
      *
      * @return void
      */
-    public function initCommets($overrideExisting = true)
+    public function initComments($overrideExisting = true)
     {
-        if (null !== $this->collCommets && !$overrideExisting) {
+        if (null !== $this->collComments && !$overrideExisting) {
             return;
         }
-        $this->collCommets = new ObjectCollection();
-        $this->collCommets->setModel('\Commet');
+        $this->collComments = new ObjectCollection();
+        $this->collComments->setModel('\Comment');
     }
 
     /**
-     * Gets an array of ChildCommet objects which contain a foreign key that references this object.
+     * Gets an array of ChildComment objects which contain a foreign key that references this object.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
@@ -1148,108 +1148,108 @@ abstract class User implements ActiveRecordInterface
      *
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|ChildCommet[] List of ChildCommet objects
+     * @return ObjectCollection|ChildComment[] List of ChildComment objects
      * @throws PropelException
      */
-    public function getCommets(Criteria $criteria = null, ConnectionInterface $con = null)
+    public function getComments(Criteria $criteria = null, ConnectionInterface $con = null)
     {
-        $partial = $this->collCommetsPartial && !$this->isNew();
-        if (null === $this->collCommets || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collCommets) {
+        $partial = $this->collCommentsPartial && !$this->isNew();
+        if (null === $this->collComments || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collComments) {
                 // return empty collection
-                $this->initCommets();
+                $this->initComments();
             } else {
-                $collCommets = ChildCommetQuery::create(null, $criteria)
+                $collComments = ChildCommentQuery::create(null, $criteria)
                     ->filterByUser($this)
                     ->find($con);
 
                 if (null !== $criteria) {
-                    if (false !== $this->collCommetsPartial && count($collCommets)) {
-                        $this->initCommets(false);
+                    if (false !== $this->collCommentsPartial && count($collComments)) {
+                        $this->initComments(false);
 
-                        foreach ($collCommets as $obj) {
-                            if (false == $this->collCommets->contains($obj)) {
-                                $this->collCommets->append($obj);
+                        foreach ($collComments as $obj) {
+                            if (false == $this->collComments->contains($obj)) {
+                                $this->collComments->append($obj);
                             }
                         }
 
-                        $this->collCommetsPartial = true;
+                        $this->collCommentsPartial = true;
                     }
 
-                    return $collCommets;
+                    return $collComments;
                 }
 
-                if ($partial && $this->collCommets) {
-                    foreach ($this->collCommets as $obj) {
+                if ($partial && $this->collComments) {
+                    foreach ($this->collComments as $obj) {
                         if ($obj->isNew()) {
-                            $collCommets[] = $obj;
+                            $collComments[] = $obj;
                         }
                     }
                 }
 
-                $this->collCommets = $collCommets;
-                $this->collCommetsPartial = false;
+                $this->collComments = $collComments;
+                $this->collCommentsPartial = false;
             }
         }
 
-        return $this->collCommets;
+        return $this->collComments;
     }
 
     /**
-     * Sets a collection of ChildCommet objects related by a one-to-many relationship
+     * Sets a collection of ChildComment objects related by a one-to-many relationship
      * to the current object.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
      *
-     * @param      Collection $commets A Propel collection.
+     * @param      Collection $comments A Propel collection.
      * @param      ConnectionInterface $con Optional connection object
      * @return $this|ChildUser The current object (for fluent API support)
      */
-    public function setCommets(Collection $commets, ConnectionInterface $con = null)
+    public function setComments(Collection $comments, ConnectionInterface $con = null)
     {
-        /** @var ChildCommet[] $commetsToDelete */
-        $commetsToDelete = $this->getCommets(new Criteria(), $con)->diff($commets);
+        /** @var ChildComment[] $commentsToDelete */
+        $commentsToDelete = $this->getComments(new Criteria(), $con)->diff($comments);
 
 
-        $this->commetsScheduledForDeletion = $commetsToDelete;
+        $this->commentsScheduledForDeletion = $commentsToDelete;
 
-        foreach ($commetsToDelete as $commetRemoved) {
-            $commetRemoved->setUser(null);
+        foreach ($commentsToDelete as $commentRemoved) {
+            $commentRemoved->setUser(null);
         }
 
-        $this->collCommets = null;
-        foreach ($commets as $commet) {
-            $this->addCommet($commet);
+        $this->collComments = null;
+        foreach ($comments as $comment) {
+            $this->addComment($comment);
         }
 
-        $this->collCommets = $commets;
-        $this->collCommetsPartial = false;
+        $this->collComments = $comments;
+        $this->collCommentsPartial = false;
 
         return $this;
     }
 
     /**
-     * Returns the number of related Commet objects.
+     * Returns the number of related Comment objects.
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct
      * @param      ConnectionInterface $con
-     * @return int             Count of related Commet objects.
+     * @return int             Count of related Comment objects.
      * @throws PropelException
      */
-    public function countCommets(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    public function countComments(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
     {
-        $partial = $this->collCommetsPartial && !$this->isNew();
-        if (null === $this->collCommets || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collCommets) {
+        $partial = $this->collCommentsPartial && !$this->isNew();
+        if (null === $this->collComments || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collComments) {
                 return 0;
             }
 
             if ($partial && !$criteria) {
-                return count($this->getCommets());
+                return count($this->getComments());
             }
 
-            $query = ChildCommetQuery::create(null, $criteria);
+            $query = ChildCommentQuery::create(null, $criteria);
             if ($distinct) {
                 $query->distinct();
             }
@@ -1259,54 +1259,54 @@ abstract class User implements ActiveRecordInterface
                 ->count($con);
         }
 
-        return count($this->collCommets);
+        return count($this->collComments);
     }
 
     /**
-     * Method called to associate a ChildCommet object to this object
-     * through the ChildCommet foreign key attribute.
+     * Method called to associate a ChildComment object to this object
+     * through the ChildComment foreign key attribute.
      *
-     * @param  ChildCommet $l ChildCommet
+     * @param  ChildComment $l ChildComment
      * @return $this|\User The current object (for fluent API support)
      */
-    public function addCommet(ChildCommet $l)
+    public function addComment(ChildComment $l)
     {
-        if ($this->collCommets === null) {
-            $this->initCommets();
-            $this->collCommetsPartial = true;
+        if ($this->collComments === null) {
+            $this->initComments();
+            $this->collCommentsPartial = true;
         }
 
-        if (!$this->collCommets->contains($l)) {
-            $this->doAddCommet($l);
+        if (!$this->collComments->contains($l)) {
+            $this->doAddComment($l);
         }
 
         return $this;
     }
 
     /**
-     * @param ChildCommet $commet The ChildCommet object to add.
+     * @param ChildComment $comment The ChildComment object to add.
      */
-    protected function doAddCommet(ChildCommet $commet)
+    protected function doAddComment(ChildComment $comment)
     {
-        $this->collCommets[]= $commet;
-        $commet->setUser($this);
+        $this->collComments[]= $comment;
+        $comment->setUser($this);
     }
 
     /**
-     * @param  ChildCommet $commet The ChildCommet object to remove.
+     * @param  ChildComment $comment The ChildComment object to remove.
      * @return $this|ChildUser The current object (for fluent API support)
      */
-    public function removeCommet(ChildCommet $commet)
+    public function removeComment(ChildComment $comment)
     {
-        if ($this->getCommets()->contains($commet)) {
-            $pos = $this->collCommets->search($commet);
-            $this->collCommets->remove($pos);
-            if (null === $this->commetsScheduledForDeletion) {
-                $this->commetsScheduledForDeletion = clone $this->collCommets;
-                $this->commetsScheduledForDeletion->clear();
+        if ($this->getComments()->contains($comment)) {
+            $pos = $this->collComments->search($comment);
+            $this->collComments->remove($pos);
+            if (null === $this->commentsScheduledForDeletion) {
+                $this->commentsScheduledForDeletion = clone $this->collComments;
+                $this->commentsScheduledForDeletion->clear();
             }
-            $this->commetsScheduledForDeletion[]= clone $commet;
-            $commet->setUser(null);
+            $this->commentsScheduledForDeletion[]= clone $comment;
+            $comment->setUser(null);
         }
 
         return $this;
@@ -1340,14 +1340,14 @@ abstract class User implements ActiveRecordInterface
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
-            if ($this->collCommets) {
-                foreach ($this->collCommets as $o) {
+            if ($this->collComments) {
+                foreach ($this->collComments as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
         } // if ($deep)
 
-        $this->collCommets = null;
+        $this->collComments = null;
     }
 
     /**

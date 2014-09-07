@@ -4,7 +4,7 @@ return [
     'propel' => [
         'database' => [
             'connections' => [
-                'scio1' => [
+                'propel_scio1' => [
                     'adapter'    => 'mysql',
                     'classname'  => 'Propel\Runtime\Connection\ConnectionWrapper',
                     'dsn'        => 'mysql:host=localhost;dbname=propel_scio1',
@@ -15,12 +15,12 @@ return [
             ]
         ],
         'runtime' => [
-            'defaultConnection' => 'scio1',
-            'connections' => ['scio1']
+            'defaultConnection' => 'propel_scio1',
+            'connections' => ['propel_scio1']
         ],
         'generator' => [
-            'defaultConnection' => 'scio1',
-            'connections' => ['scio1']
+            'defaultConnection' => 'propel_scio1',
+            'connections' => ['propel_scio1']
         ]
     ]
 ];

@@ -19,20 +19,20 @@ CREATE TABLE `users`
 ) ENGINE=InnoDB CHARACTER SET='utf8';
 
 -- ---------------------------------------------------------------------
--- commets
+-- comments
 -- ---------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `commets`;
+DROP TABLE IF EXISTS `comments`;
 
-CREATE TABLE `commets`
+CREATE TABLE `comments`
 (
     `comment_id` INTEGER NOT NULL AUTO_INCREMENT,
     `user_id` INTEGER NOT NULL,
     `comment` VARCHAR(255) NOT NULL,
     `created_date` DATETIME NOT NULL,
     PRIMARY KEY (`comment_id`),
-    INDEX `commets_fi_72218f` (`user_id`),
-    CONSTRAINT `commets_fk_72218f`
+    INDEX `comments_fi_72218f` (`user_id`),
+    CONSTRAINT `comments_fk_72218f`
         FOREIGN KEY (`user_id`)
         REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB CHARACTER SET='utf8';

@@ -1,0 +1,10 @@
+#content {
+    background-color: $white;
+    border: 1px solid $gray;
+    margin-bottom: 1em;
+    padding: 1em;
+
+	.window {
+		&:not(.active) { display: none; }
+	}
+}

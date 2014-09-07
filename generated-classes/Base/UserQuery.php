@@ -32,11 +32,11 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUserQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ChildUserQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     ChildUserQuery leftJoinCommet($relationAlias = null) Adds a LEFT JOIN clause to the query using the Commet relation
- * @method     ChildUserQuery rightJoinCommet($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Commet relation
- * @method     ChildUserQuery innerJoinCommet($relationAlias = null) Adds a INNER JOIN clause to the query using the Commet relation
+ * @method     ChildUserQuery leftJoinComment($relationAlias = null) Adds a LEFT JOIN clause to the query using the Comment relation
+ * @method     ChildUserQuery rightJoinComment($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Comment relation
+ * @method     ChildUserQuery innerJoinComment($relationAlias = null) Adds a INNER JOIN clause to the query using the Comment relation
  *
- * @method     \CommetQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \CommentQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildUser findOne(ConnectionInterface $con = null) Return the first ChildUser matching the query
  * @method     ChildUser findOneOrCreate(ConnectionInterface $con = null) Return the first ChildUser matching the query, or a new ChildUser object populated from the query conditions when no match is found
@@ -342,40 +342,40 @@ abstract class UserQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related \Commet object
+     * Filter the query by a related \Comment object
      *
-     * @param \Commet|ObjectCollection $commet  the related object to use as filter
+     * @param \Comment|ObjectCollection $comment  the related object to use as filter
      * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ChildUserQuery The current query, for fluid interface
      */
-    public function filterByCommet($commet, $comparison = null)
+    public function filterByComment($comment, $comparison = null)
     {
-        if ($commet instanceof \Commet) {
+        if ($comment instanceof \Comment) {
             return $this
-                ->addUsingAlias(UserTableMap::COL_USER_ID, $commet->getUserId(), $comparison);
-        } elseif ($commet instanceof ObjectCollection) {
+                ->addUsingAlias(UserTableMap::COL_USER_ID, $comment->getUserId(), $comparison);
+        } elseif ($comment instanceof ObjectCollection) {
             return $this
-                ->useCommetQuery()
-                ->filterByPrimaryKeys($commet->getPrimaryKeys())
+                ->useCommentQuery()
+                ->filterByPrimaryKeys($comment->getPrimaryKeys())
                 ->endUse();
         } else {
-            throw new PropelException('filterByCommet() only accepts arguments of type \Commet or Collection');
+            throw new PropelException('filterByComment() only accepts arguments of type \Comment or Collection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Commet relation
+     * Adds a JOIN clause to the query using the Comment relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildUserQuery The current query, for fluid interface
      */
-    public function joinCommet($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinComment($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Commet');
+        $relationMap = $tableMap->getRelation('Comment');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -390,14 +390,14 @@ abstract class UserQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Commet');
+            $this->addJoinObject($join, 'Comment');
         }
 
         return $this;
     }
 
     /**
-     * Use the Commet relation Commet object
+     * Use the Comment relation Comment object
      *
      * @see useQuery()
      *
@@ -405,13 +405,13 @@ abstract class UserQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return \CommetQuery A secondary query class using the current class as primary query
+     * @return \CommentQuery A secondary query class using the current class as primary query
      */
-    public function useCommetQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useCommentQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinCommet($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Commet', '\CommetQuery');
+            ->joinComment($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Comment', '\CommentQuery');
     }
 
     /**

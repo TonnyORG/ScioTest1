@@ -12,7 +12,7 @@
         </unique>
         <column name="created_date" type="timestamp" required="true" />
     </table>
-    <table name="commets" phpName="Commet">
+    <table name="comments" phpName="Comment">
         <column name="comment_id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="user_id" type="integer" required="true" />
         <foreign-key foreignTable="users">
