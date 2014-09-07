@@ -14,7 +14,7 @@ El objetivo es pasar una evaluación y aprovechar el reto para aprender cosas nu
 
 ### Configuración
 
-Si bien no hay mucho que configurar, es necesario hacer ligeros en algunos archivos como los de la base de datos. Si deseas omitir los cambios en el nombre de la base de datos, entonces crea una base de datos denominada `propel_scio1`; considera que si has creado esta base de datos entonces omite toda instrucción que te indique cambiar el nombre de la base de datos (únicamente nombre de la base de datos).
+Si bien no hay mucho que configurar, es necesario hacer ligeros cambios en algunos archivos como los de la base de datos. Si deseas omitir los cambios en el nombre de la base de datos, entonces crea una base de datos denominada `propel_scio1`; considera que si has creado esta base de datos entonces omite toda instrucción que te indique cambiar el nombre de la base de datos (únicamente nombre de la base de datos).
 
 1. Cambiar el nombre de la base de datos en el archivo `schema.xml`. Si necesitas ayuda para ubicarlo, lee [ésta sección](http://propelorm.org/documentation/02-buildtime.html#database-connection-name).
 2. Cambiar el usuario, contraseña, host y nombre de la base de datos en el archivo `config/propel.php`. Si necesitas ayuda para ubicar estos datos, lee [ésta sección](http://propelorm.org/documentation/02-buildtime.html#setting-up-configuration).
@@ -35,8 +35,7 @@ Si consideras que puedes mejorar el proyecto, agregarle valor con nuevas funcion
 
 1. Haz un *fork* de este proyecto.
 2. Reliza los cambios que consideres pertinentes.
-3. Documenta tus cambios (opcional), si ha sido un cambio significativo agrégalo al archivo *CHANGELOG.md*; de esta forma ayudas a los usuarios a identificar el impacto de tu aporte.
-4. Haz el clásico *pull-request* con los comentarios apropiados para identificar tu aporte y subirlo al proyecto principal.
+3. Haz el clásico *pull-request* con los comentarios apropiados para identificar tu aporte y subirlo al proyecto principal.
 
 
 ### Contribuyentes
