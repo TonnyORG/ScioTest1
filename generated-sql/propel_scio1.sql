@@ -35,6 +35,7 @@ CREATE TABLE `comments`
     CONSTRAINT `comments_fk_72218f`
         FOREIGN KEY (`user_id`)
         REFERENCES `users` (`user_id`)
+        ON DELETE CASCADE
 ) ENGINE=InnoDB CHARACTER SET='utf8';
 
 # This restores the fkey checks, after having unset them earlier

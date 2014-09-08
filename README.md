@@ -19,7 +19,7 @@ Si bien no hay mucho que configurar, es necesario hacer ligeros cambios en algun
 1. Cambiar el nombre de la base de datos en el archivo `schema.xml`. Si necesitas ayuda para ubicarlo, lee [ésta sección](http://propelorm.org/documentation/02-buildtime.html#database-connection-name).
 2. Cambiar el usuario, contraseña, host y nombre de la base de datos en el archivo `config/propel.php`. Si necesitas ayuda para ubicar estos datos, lee [ésta sección](http://propelorm.org/documentation/02-buildtime.html#setting-up-configuration).
 3. Ubicate en el directorio principal del proyecto y ejecuta el comando `./propel sql:import` para crear las tablas necesarias en la base de datos.
-4. Revisa tu base de datos entrando a la consola de *MySQL*y verifica que se han creado las tablas; si esto no funciona entonces deberás hacer un import manual del archivo `generated-sql/propel_scio1.sql` en tu base de datos.
+4. Revisa tu base de datos entrando a la consola de *MySQL*y verifica que se han creado las tablas; si esto no funciona entonces deberás hacer un import manual del archivo `generated-sql/propel_scio1.sql` en tu base de datos. Puedes hacerlo con el comando `mysql -u [tu_usuario_mysql] -p [nombre_base_datos_] < generated-sql/propel_scio1.sql` siempre y cuando te ubiques en la carpeta raíz del proyecto desde la terminal.
 
 
 ## Componentes
@@ -43,3 +43,13 @@ Si consideras que puedes mejorar el proyecto, agregarle valor con nuevas funcion
 ### Contribuyentes
 
 - N/A
+
+
+### Por hacer
+
+De momento ubico un par de cosas que pueden mejorar las pocas funcionalidades del sistema.
+
+- [ ] Implementar una función genérica en JS parra las peticiones a la API (ya estaba en eso pero estoy en un error *dummie*).
+- [ ] Traer los nombres de autores en la lista de comentarios (me falta concoer un poco más Propel ORM).
+- [ ] Implementar un sistema de rutas inteligentes (o auto-generadas a base de controladores) para un mejor manejo del archivo `config/routes.php`.
+- [ ] Aprender GRUNT para el auto-compilado y minificado de JS.

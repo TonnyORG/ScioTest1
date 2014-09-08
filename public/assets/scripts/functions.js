@@ -21,6 +21,9 @@ function updateWindows(id) {
 			getStats();
 		} else if(id == '#window-users') {
 			getUsers();
+		} else if(id == '#window-comments') {
+			getAuthors();
+			getComments();
 		}
 	}
 }
@@ -79,8 +82,37 @@ function getUsers(per_page, page, field, order) {
 	});
 }
 
+// Retrieve all users
+function getAuthors() {
+	var url = '/api/users/0/1/UserName';
+	$('#window-comments .add select[name="user_id"] option:not(:first-child)').remove();
+	$('#window-comments .add select').attr('disabled', 'disabled');
+	$('#window-comments .add textarea').attr('disabled', 'disabled');
+	$('#window-comments .add input').attr('disabled', 'disabled');
+	showLoading();
+	$.getJSON(url)
+	.always(function () {
+		hideLoading();
+	})
+	.done(function(data) {
+		if(data.length > 0) {
+			$.each(data, function(key, value) {
+				$('#window-comments .add select[name="user_id"]').append('<option value="'+value.UserId+'">'+value.UserName+'</option>');
+			});
+			$('#window-comments .add select').removeAttr('disabled');
+			$('#window-comments .add textarea').removeAttr('disabled');
+			$('#window-comments .add input').removeAttr('disabled');
+		} else {
+			$('#window-comments .textarea').html('No hay usuarios registrados.');
+		}
+	})
+	.fail(function() {
+		$('#window-comments .add textarea').html('Error de conexión.');
+	});
+}
+
 // Retrieve all comments
-function getUsers(per_page, page, field, order) {
+function getComments(per_page, page, field, order) {
 	per_page = '/'+per_page || '';
 	page = '/'+page || '';
 	field = '/'+field || '';
@@ -96,20 +128,41 @@ function getUsers(per_page, page, field, order) {
 	.done(function(data) {
 		if(data.length > 0) {
 			$.each(data, function(key, value) {
-				$('#window-users .list').append('<li><strong>Usuario dijo:</strong> +value.UserName+<a href="#'+value.CommentId+'">Borrar</a></li>');
+				$('#window-comments .list').append('<li><strong>Usuario '+value.UserId+' dijo:</strong> '+value.Comment+' <a href="#'+value.CommentId+'">Borrar</a></li>');
 			});
-			$.each($('#window-users .list li a'), function() {
-				$(this).on('click', function(e) {
-					e.preventDefault();
-					
-				});
-			});
+			updateCommentsLinks();
 		} else {
-			$('#window-users .list').html('<li>No hay usuarios registrados.</li>');
+			$('#window-comments .list').html('<li>No hay comentarios registrados.</li>');
 		}
 	})
 	.fail(function() {
-		$('#window-users .list').html('<li>Error de conexión.</li>');
+		$('#window-comments .list').html('<li>Error de conexión.</li>');
+	});
+}
+
+// Delete Comment Links
+function updateCommentsLinks(link) {
+	$('#window-comments .list a').on('click', function(e) {
+		e.preventDefault();
+		var responseObj = $('#window-comments .add .response');
+		showLoading();
+		var comment_id = $(this).attr('href').replace('#', '').trim();
+		$.post('/api/comments/delete/'+comment_id)
+		.always(function () {
+			hideLoading();
+		})
+		.done(function(data) {
+			if(data == true) {
+				updateResponse(responseObj, 'Comentario eliminado correctamente.', 'green');
+				$('#window-comments .edit input[name="reset"]').click();
+				getComments();
+			} else {
+				updateResponse(responseObj, 'No se pudo borrar el comentario.', 'red');
+			}
+		})
+		.fail(function() {
+			updateResponse(responseObj, 'Error de conexión.', 'red');
+		});
 	});
 }
 

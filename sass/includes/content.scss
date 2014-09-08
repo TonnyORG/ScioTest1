@@ -19,10 +19,8 @@
 			}
 		}
 
-		&#window-users {
+		&#window-users, &#window-comments {
 			.add, .edit {
-				padding: 1em;
-
 				.response {
 					display: none;
 
@@ -34,17 +32,18 @@
 				label { margin: 0.5em 0; }
 			}
 
-			.add {
+			.add, .view {
 				border-bottom: 1px solid $gray;
 				margin-bottom: 1em;
-				padding-top: 0;
+				padding-bottom: 1em;
+				padding: 0 0 1em;
 			}
 
 			.edit {
 				border-top: 1px solid $gray;
 				display: none;
 				margin-top: 1em;
-				padding-bottom: 0;
+				padding: 1em 1em 0;
 			}
 
 			ul {

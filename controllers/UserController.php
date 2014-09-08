@@ -73,8 +73,7 @@ class UserController extends GenericController
 			}
 			$record = $queryClassName::create()->findPK($id);
 			$record->delete();
-			//return $record->isDeleted();
-			return true;
+			return ($record->isDeleted())? true: false;
 		} catch (Exception $e) {
 			return null;
 		}

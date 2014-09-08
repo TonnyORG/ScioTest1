@@ -68,8 +68,8 @@
 						<option value="CreatedDate">Fecha de registro</option>
 					</select>
 					<select class="col" name="order">
-						<option value="desc" selected="selected">Orden Descendente</option>
-						<option value="asc">Orden Ascendente</option>
+						<option value="asc" selected="selected">Orden Ascendente</option>
+						<option value="desc">Orden Descendente</option>
 					</select>
 				</p>
 				<input name="view" type="button" value="Filtrar" />
@@ -92,14 +92,40 @@
 
 		<div class="window" id="window-comments">
 			<h2>Comentarios</h2>
-			<ul>
-				<li class="users">
-					<span class="label">Usuarios</span> <span class="value"></span>
-				</li>
-				<li class="comments">
-					<span class="label">Comentarios</span> <span class="value"></span>
-				</li>
-			</ul>
+			<form action="/api/comments/add" class="add" enctype="multipart/form-data" method="post">
+				<h6>Crear comentario</h6>
+				<div class="response"></div>
+				<label class="row">
+					<span class="col col-span-3">Autor</span>
+					<select class="col" name="user_id">
+						<option value="0" selected="selected">Selecciona al author</option>
+					</select>
+				</label>
+				<label class="row">
+					<span class="col col-span-3">Comentario</span>
+					<textarea class="col col-span-9" name="comment">Introduce el comentario</textarea>
+				</label>
+				<input name="add" type="button" value="Crear" />
+				<input name="reset" type="reset" value="Limpiar" />
+			</form><!-- .add -->
+			<form action="/api/comments" class="view" enctype="multipart/form-data" method="get">
+				<h6>Filtrar comentarios</h6>
+				<p class="row">
+					<input class="col" name="per_page" placeholder="Resultados por página (0 para todos)" type="text" />
+					<input class="col" name="page" placeholder="Número de página" type="text" />
+					<select class="col" name="filter">
+						<option value="CommentId" selected="selected">Ordenar por ID</option>
+						<option value="CreatedDate">Fecha de registro</option>
+					</select>
+					<select class="col" name="order">
+						<option value="asc" selected="selected">Orden Ascendente</option>
+						<option value="desc">Orden Descendente</option>
+					</select>
+				</p>
+				<input name="view" type="button" value="Filtrar" />
+				<input name="reset" type="reset" value="Limpiar" />
+			</form><!-- .view -->
+			<ul class="list"></ul>
 		</div><!-- #window-comments -->
 	</section><!-- #content -->
 

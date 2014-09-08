@@ -15,7 +15,7 @@
     <table name="comments" phpName="Comment">
         <column name="comment_id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="user_id" type="integer" required="true" />
-        <foreign-key foreignTable="users">
+        <foreign-key foreignTable="users" onDelete="CASCADE">
             <reference local="user_id" foreign="user_id" />
         </foreign-key>
         <column name="comment" type="varchar" size="255" required="true" />
