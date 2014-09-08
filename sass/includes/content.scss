@@ -1,0 +1,57 @@
+#content {
+    background-color: $white;
+    border: 1px solid $gray;
+    margin-bottom: 1em;
+    padding: 1em;
+
+	.window {
+		&:not(.active) { display: none; }
+
+		&#window-home {
+			ul {
+				li {
+					.label {
+						font-weight: 600;
+						margin-right: 1em;
+						text-transform: uppercase;
+					}
+				}
+			}
+		}
+
+		&#window-users, &#window-comments {
+			.add, .edit {
+				.response {
+					display: none;
+
+					&.green { color: $green; }
+
+					&.red { color: $red; }
+				}
+
+				label { margin: 0.5em 0; }
+			}
+
+			.add, .view {
+				border-bottom: 1px solid $gray;
+				margin-bottom: 1em;
+				padding-bottom: 1em;
+				padding: 0 0 1em;
+			}
+
+			.edit {
+				border-top: 1px solid $gray;
+				display: none;
+				margin-top: 1em;
+				padding: 1em 1em 0;
+			}
+
+			ul {
+				list-style: circle inside;
+
+				li {
+				}
+			}
+		}
+	}
+}

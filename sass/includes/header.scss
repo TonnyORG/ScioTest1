@@ -1,0 +1,22 @@
+#header {
+    background-color: $white;
+    border: 1px solid $gray;
+    margin-bottom: 1em;
+
+    .options {
+        ul {
+            margin: 0;
+            padding: 0;
+
+            li {
+                a {
+                    display: block;
+                    font-weight: 600;
+                    padding: 1em;
+                    text-align: center;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
