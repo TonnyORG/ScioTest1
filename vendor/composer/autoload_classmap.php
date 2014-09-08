@@ -13,6 +13,7 @@ return array(
     'Comment' => $baseDir . '/generated-classes/Comment.php',
     'CommentController' => $baseDir . '/controllers/CommentController.php',
     'CommentQuery' => $baseDir . '/generated-classes/CommentQuery.php',
+    'GenericController' => $baseDir . '/controllers/GenericController.php',
     'Map\\CommentTableMap' => $baseDir . '/generated-classes/Map/CommentTableMap.php',
     'Map\\UserTableMap' => $baseDir . '/generated-classes/Map/UserTableMap.php',
     'User' => $baseDir . '/generated-classes/User.php',
